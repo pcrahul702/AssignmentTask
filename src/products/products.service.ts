@@ -64,7 +64,8 @@ export class ProductsService {
         const allproducts = JSON.parse(fs.readFileSync(this.productRepo, 'utf-8'));
         const index = allproducts.findIndex((item:any) => item.id == id);
         if (index !== -1) {
-            allproducts[index]={id,...body};
+          const currentitem=allproducts[index]
+            allproducts[index]={...currentitem,...body};
             fs.writeFileSync(this.productRepo, JSON.stringify(allproducts), 'utf-8');
             return `Product Updated successfully on Id ${id}` ;
         }
